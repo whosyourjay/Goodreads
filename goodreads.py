@@ -42,7 +42,7 @@ def score(stars, votes, user_avg):
 
 book_list = [(name, books[name][0], books[name][1]) for name in books]
 book_list.sort(key=lambda book: score(book[1], book[2], 4))
-book_list = book_list[:1000]
+book_list = book_list[:2000]
 
 book_count = 0
 all_users = {}
