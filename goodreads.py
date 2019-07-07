@@ -149,8 +149,8 @@ def parse_book(book):
     print("%f %s" % (scores[name], name))
 
 
-for book in book_list:
-    parse_book(book)
+#for book in book_list:
+#    parse_book(book)
 #p = Pool(30)  # Pool tells how many at a time
 #p.map(parse_book, book_list)
 #p.terminate()

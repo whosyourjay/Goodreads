@@ -6,7 +6,6 @@ import calendar
 from bs4 import BeautifulSoup
 from multiprocessing import Pool
 
-# TODO Grab 1e5 books for first pass sort
 # /book/popular_by_date/2008/January
 # /book/popular_by_date/1909
 # That's 5e4 books
@@ -21,32 +20,6 @@ book_str = "/book/show/"
 #s = requests.session()
 #s.config['keep_alive'] = False
 
-
-def parse_book(book):
-    # Get page
-    book_url = root + book
-    book_response = requests.get(book_url)
-    book_soup = BeautifulSoup(book_response.text, 'html.parser')
-
-    # TODO get avg, num ratings
-    rating_node = book_soup.select('[itemprop=ratingValue]')
-    rating = float(rating_node[0].get_text())
-
-    # Get users reviewing this book
-    reviews = book_soup.select('a.user')
-    users = [review['href'] for review in reviews]
-
-    # Get users in parallel 
-    p = Pool(30)  # Pool tells how many at a time
-    avgs = p.map(parse_user, users)
-    p.terminate()
-    p.join()
-
-    #avgs = [parse_user(user) for user in users]
-    avgs = [avg for avg in avgs if avg != None]
-    user_avg = sum(avgs)/len(avgs)
-
-    return (rating, user_avg)
 
 def parse_page(list_url):
     print(list_url)
@@ -75,7 +48,17 @@ def parse_page(list_url):
             link = links[pos]
             f.write("%f,%d,%s" % (stars, votes, link) + '\n')
 
-lists = [root + pop_str + str(year) for year in range(1909, 2020)]
+# Change list number if you just want a specific list
+lists = []
+#lists += [root + pop_str + str(year) for year in range(1909, 2008)]
+#lists += [root + pop_str + str(year) + '/' + calendar.month_name[month]
+#        for year in range(2008, 2020)
+#        for month in range(1, 13)]
+
+list_str = "/list/show/1?page="
+lists += [root + list_str + str(page) for page in range(1, 565)]
+
+
 # Get books in parallel
 p = Pool(30)  # Pool tells how many at a time
 avgs = p.map(parse_page, lists)
