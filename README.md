@@ -12,4 +12,4 @@ python goodreads.py
 
 `books.csv` contains easy-to-grab info like name, rating, and number of voters. `data.csv` contains more info. On rerun `goodreads.py` will use cached info.
 
-Edit `lists` in `book-list.py` if you just want the best of a specific list.
+Edit `list-lens` in `book-list.py` if you just want the best of a specific list. It should be a pair of (book list number, number of pages it contains).
