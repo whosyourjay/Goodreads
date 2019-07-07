@@ -55,10 +55,10 @@ lists = []
 #        for year in range(2008, 2020)
 #        for month in range(1, 13)]
 
-# Pairs (list #, # pages in list)
-# (1, 549)
 #list_lens = [(1, 549), (1043, 286), (264, 207), (8166, 168), (1938, 122), (43, 116)]
-list_lens = [(1, 10)]
+
+# Pairs (list #, # pages in list)
+list_lens = [(1, 10)] # ---- EDIT THIS -----
 list_str = "/list/show/"
 page_str = "?page="
 for (book_list, pages) in list_lens:
